@@ -1,0 +1,31 @@
+[project]
+name = "trustaid-pomdp"
+version = "3.0.0"
+description = "TrustAid POMDP — Indian emergency support OpenEnv"
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic>=2.0",
+    "fastapi",
+    "uvicorn[standard]",
+    "openai>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = []
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.backends.legacy:build"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["trustaid*"]
+
+[openenv]
+name = "trustaid-pomdp-env"
+version = "3.0.0"
+inference_script = "inference.py"
+agent_class = "FrontierAgent"
+server_script = "server.py"
+dockerfile = "Dockerfile"
+port = 7860

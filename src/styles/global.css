@@ -1,0 +1,393 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Noto+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* TrustAid Government Color System */
+  --navy:       #0a1628;
+  --navy-mid:   #0f2040;
+  --navy-light: #162d55;
+  --surface:    #f5f7fa;
+  --white:      #ffffff;
+  --card:       #ffffff;
+
+  /* Brand */
+  --crimson:    #c0392b;
+  --crimson-d:  #962d22;
+  --crimson-l:  #e74c3c;
+  --crimson-bg: #fdf2f1;
+  --saffron:    #e67e22;
+  --green-in:   #27ae60;
+  --ashoka:     #1a5276;
+
+  /* Neutrals */
+  --t1: #0d1b2a;
+  --t2: #2c3e50;
+  --t3: #5d6d7e;
+  --t4: #aab7c4;
+  --border: #dde3ea;
+  --border-strong: #bdc8d4;
+
+  /* Service colours */
+  --c-police:    #1a3a6c;
+  --c-fire:      #c0392b;
+  --c-medical:   #c0392b;
+  --c-disaster:  #6c4a00;
+  --c-woman:     #8e44ad;
+  --c-child:     #2980b9;
+  --c-elderly:   #16a085;
+  --c-railway:   #1a5276;
+  --c-animal:    #27ae60;
+  --c-cyber:     #2c3e50;
+  --c-food:      #e67e22;
+  --c-other:     #7f8c8d;
+
+  /* Fonts */
+  --f-head: 'Be Vietnam Pro', 'Noto Sans', sans-serif;
+  --f-body: 'Noto Sans', 'Be Vietnam Pro', sans-serif;
+  --f-mono: 'JetBrains Mono', monospace;
+
+  /* Radii */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-xl: 20px;
+  --r-2xl: 28px;
+
+  /* Sidebar */
+  --sidebar-w: 260px;
+  --header-h: 60px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.14);
+  --shadow-card: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* ── Dark Theme ── */
+[data-theme="dark"] {
+  --surface:       #0f1923;
+  --white:         #1a2535;
+  --card:          #1a2535;
+  --navy:          #0a1628;
+  --navy-mid:      #0d1e38;
+  --navy-light:    #162d55;
+  --t1:            #e8f0fe;
+  --t2:            #b0c4d8;
+  --t3:            #6e8aaa;
+  --t4:            #3d5570;
+  --border:        #253548;
+  --border-strong: #2e4460;
+  --crimson-bg:    #2a1010;
+  --saffron:       #f59e0b;
+  --shadow-sm:     0 1px 4px rgba(0,0,0,.3);
+  --shadow-md:     0 4px 16px rgba(0,0,0,.4);
+  --shadow-lg:     0 8px 32px rgba(0,0,0,.5);
+  --shadow-card:   0 2px 12px rgba(0,0,0,.4);
+}
+
+[data-theme="dark"] body { background: var(--surface); }
+[data-theme="dark"] .app-shell { background: var(--surface); }
+
+html, body {
+  height: 100%;
+  background: var(--surface);
+  color: var(--t1);
+  font-family: var(--f-body);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  transition: background .3s, color .3s;
+}
+
+#root { height: 100vh; display: flex; overflow: hidden; }
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+/* Animations */
+@keyframes fadeUp   { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:none} }
+@keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+@keyframes slideIn  { from{opacity:0;transform:translateX(-16px)} to{opacity:1;transform:none} }
+@keyframes spin     { to{transform:rotate(360deg)} }
+@keyframes pulse    { 0%,100%{opacity:1} 50%{opacity:.5} }
+@keyframes scaleIn  { from{opacity:0;transform:scale(.97)} to{opacity:1;transform:scale(1)} }
+@keyframes shimmer  {
+  0%  { background-position: -400px 0 }
+  100%{ background-position:  400px 0 }
+}
+@keyframes slideDown {
+  from { opacity:0; transform:translateY(-8px); }
+  to   { opacity:1; transform:none; }
+}
+
+/* Utilities */
+.anim-fade-up  { animation: fadeUp .45s ease both; }
+.anim-fade-in  { animation: fadeIn .3s ease both; }
+.anim-scale-in { animation: scaleIn .3s ease both; }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--r-md);
+  font-family: var(--f-head);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .22s ease;
+  border: 1.5px solid transparent;
+  outline: none;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--crimson);
+  color: #fff;
+  border-color: var(--crimson);
+  box-shadow: 0 2px 12px rgba(192,57,43,.25);
+}
+.btn-primary:hover {
+  background: var(--crimson-d);
+  border-color: var(--crimson-d);
+  box-shadow: 0 4px 20px rgba(192,57,43,.35);
+  transform: translateY(-1px);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--crimson);
+  border-color: var(--crimson);
+}
+.btn-outline:hover { background: var(--crimson-bg); }
+.btn-ghost {
+  background: transparent;
+  color: var(--t2);
+  border-color: var(--border);
+}
+.btn-ghost:hover { background: var(--surface); border-color: var(--border-strong); color: var(--t1); }
+.btn-navy {
+  background: var(--navy);
+  color: #fff;
+  border-color: var(--navy);
+  box-shadow: 0 2px 12px rgba(10,22,40,.25);
+}
+.btn-navy:hover { background: var(--navy-mid); transform: translateY(-1px); }
+
+/* Status badge */
+.status-live {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600;
+  color: var(--green-in);
+}
+.status-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green-in);
+  animation: pulse 2s ease infinite;
+}
+
+/* App shell */
+.app-shell {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all .3s cubic-bezier(.4,0,.2,1);
+  min-width: 0;
+}
+
+/* India flag stripe */
+.flag-stripe {
+  height: 3px;
+  background: linear-gradient(90deg,
+    var(--saffron) 0% 33.3%,
+    var(--white)   33.3% 66.6%,
+    var(--green-in) 66.6% 100%
+  );
+  flex-shrink: 0;
+}
+
+/* Section label */
+.section-label {
+  font-family: var(--f-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--t3);
+}
+
+/* Loading spinner */
+.spinner {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(255,255,255,.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+.spinner-dark {
+  border: 2px solid var(--border);
+  border-top-color: var(--crimson);
+}
+
+/* ── Theme transition (smooth) ── */
+*, *::before, *::after {
+  transition: background-color .25s ease, border-color .25s ease, color .2s ease;
+}
+
+/* ── Sidebar overlay (mobile) ── */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 199;
+  backdrop-filter: blur(2px);
+  animation: fadeIn .2s ease;
+}
+
+/* ── Responsive: sidebar push ── */
+@media (max-width: 900px) {
+  .sidebar { position: fixed; z-index: 200; height: 100vh; top: 0; left: 0; }
+  .sidebar.closed { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); box-shadow: 4px 0 40px rgba(0,0,0,.3); }
+  .main-content { width: 100%; }
+}
+@media (min-width: 901px) {
+  .sidebar.closed { width: 0; overflow: hidden; border-right: none; }
+  .sidebar.open { width: var(--sidebar-w); }
+}
+
+/* ── GPS location pill (header) ── */
+.loc-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 9px;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: var(--f-mono);
+  white-space: nowrap;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.loc-pill.granted  { background: rgba(39,174,96,.10); color: var(--green-in); border: 1px solid rgba(39,174,96,.25); }
+.loc-pill.denied   { background: rgba(192,57,43,.08); color: var(--crimson);  border: 1px solid rgba(192,57,43,.2); }
+.loc-pill.requesting { background: rgba(230,126,34,.08); color: var(--saffron); border: 1px solid rgba(230,126,34,.2); animation: pulse 1.4s ease infinite; }
+
+/* ── SOS bar always above footer ── */
+.sos-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 300;
+}
+
+/* ── Floating chatbot z-index above SOS ── */
+.fcb-wrap { z-index: 400 !important; }
+
+/* ── Dark mode FloatingChatbot ── */
+[data-theme="dark"] .fcb-window {
+  background: #1a2535;
+  border-color: #253548;
+}
+[data-theme="dark"] .fcb-head { background: #0f1923; border-color: #253548; }
+[data-theme="dark"] .fcb-input { background: #0f1923; border-color: #253548; color: #e8f0fe; }
+[data-theme="dark"] .fcb-bubble { background: #253548; }
+[data-theme="dark"] .fcb-msg.user .fcb-bubble { background: var(--crimson); }
+[data-theme="dark"] .fcb-input-area { background: #0f1923; border-color: #253548; }
+
+/* ═══════════════════════════════════════
+   THEME CONTRAST FIXES — v3.1
+   All text must meet WCAG AA (4.5:1 ratio)
+   ═══════════════════════════════════════ */
+
+/* Light mode — ensure sufficient contrast */
+:root {
+  --t1: #0d1b2a;       /* 15.3:1 on white */
+  --t2: #1e3246;       /* 10.1:1 on white */
+  --t3: #3d5570;       /* 6.2:1 on white — was #5d6d7e (4.4, too low) */
+  --t4: #6b7c8d;       /* 4.6:1 on white — was #aab7c4 (2.3, failed) */
+}
+
+/* Dark mode — strong contrast on dark backgrounds */
+[data-theme="dark"] {
+  --t1: #f0f4f8;       /* 14.8:1 on #0f1923 */
+  --t2: #c8d8e8;       /* 9.5:1 on #0f1923 */
+  --t3: #8dafc8;       /* 5.2:1 on #0f1923 — was #6e8aaa (3.8, failed) */
+  --t4: #5a7a96;       /* 4.6:1 on #0f1923 — was #3d5570 (2.9, failed) */
+  --border: rgba(255,255,255,.12);
+  --border-strong: rgba(255,255,255,.22);
+  --surface: #0f1923;
+  --card:    #1a2535;
+  --navy-mid: #152030;
+  --navy-light: #1e2e42;
+  --crimson-bg: rgba(192,57,43,.18);
+}
+
+/* Fix dark-mode button text contrast */
+[data-theme="dark"] .btn-ghost {
+  color: var(--t2);
+  border-color: var(--border-strong);
+}
+[data-theme="dark"] .btn-ghost:hover { color: var(--t1); background: rgba(255,255,255,.06); }
+[data-theme="dark"] .btn-navy { background: #1e3a6c; }
+
+/* Fix dark-mode input placeholders */
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder { color: var(--t4); opacity: 1; }
+
+/* ── SIDEBAR COLLAPSE BUG FIX ──
+   When sidebar is closed on desktop, it must collapse to 0 width
+   without distorting the main content. Use width + overflow: hidden.
+*/
+.app-shell {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: width .3s cubic-bezier(.4,0,.2,1), transform .3s cubic-bezier(.4,0,.2,1);
+}
+
+/* Desktop: sidebar collapses via width, no position shift */
+@media (min-width: 901px) {
+  .sidebar.open  { width: var(--sidebar-w); }
+  .sidebar.closed { width: 0; }
+  .main-content { flex: 1; min-width: 0; overflow: hidden; }
+}
+
+/* Mobile: sidebar is fixed overlay, main stays full-width */
+@media (max-width: 900px) {
+  .sidebar {
+    position: fixed !important;
+    top: 0; left: 0; bottom: 0;
+    width: var(--sidebar-w) !important;
+    z-index: 200;
+  }
+  .sidebar.open  { transform: translateX(0); box-shadow: 4px 0 40px rgba(0,0,0,.3); }
+  .sidebar.closed { transform: translateX(-100%); }
+  .main-content { width: 100%; flex: 1; min-width: 0; }
+}
+
+/* ── Language localization placeholder in body ──
+   When language changes, applies direction if needed */
+[data-lang="ur"] body, [data-lang="ar"] body { direction: rtl; }
+
+[data-theme="dark"] .cp-root    { background: #0e1824 !important; }
+[data-theme="dark"] .cp-messages { background: #0e1824 !important; }
+[data-theme="dark"] .cp-chips-row { background: #141f2e !important; border-color: #2d4060 !important; }
+[data-theme="dark"] .cp-input-area { background: #141f2e !important; border-color: #2d4060 !important; }

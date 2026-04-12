@@ -1,0 +1,101 @@
+name: trustaid-pomdp-env
+version: "3.0.0"
+description: >
+  TrustAid POMDP — Production-grade Partially-Observable environment for Indian emergency support.
+  Agents handle stochastic users, hidden severity, and time-critical dispatch under uncertainty.
+  Designed to penalize shallow reasoning and reward principled belief-state planning.
+
+author: "TrustAid RL Team"
+organization: "Meta x Scaler OpenEnv Hackathon"
+license: MIT
+
+tags: [pomdp, emergency-services, belief-state, stochastic, india, safety-critical, anti-shortcut]
+
+environment:
+  type: pomdp
+  is_multi_agent: false
+  is_multi_turn: true
+  max_steps: 20
+  reward_range: [-1.0, 1.0]
+  observation_type: partial
+  stochastic: true
+  time_sensitive: true
+
+hidden_state_space:
+  properties:
+    true_risk_rate:        {type: float, range: [0, 10]}
+    actual_severity:       {type: float, range: [0, 1]}
+    user_truthfulness:     {type: float, range: [0, 1]}
+    hidden_complications:  {type: list}
+    hidden_spread_rate:    {type: float}
+    optimal_dispatch_step: {type: int}
+
+observation_space:
+  properties:
+    session_id, step_num, category, panic_level, time_elapsed,
+    current_risk, verified_facts, user_message, conversation_len,
+    available_actions, observation_noise, hint
+
+action_space:
+  enum: [ask_question, dispatch_service, provide_guidance, verify_fact, escalate, close_case]
+
+tasks:
+  - id: task_easy_food_delay
+    difficulty: easy
+    actual_severity: 0.10
+    user_truthfulness: 0.95
+    instant_fail: [dispatch_emergency_for_food]
+    expected_score: [0.65, 1.0]
+    naive_llm_score: 0.55
+
+  - id: task_medium_woman_safety
+    difficulty: medium
+    actual_severity: 0.65
+    user_truthfulness: 0.70
+    hidden_complications: [stalker_has_weapon, user_is_alone]
+    optimal_dispatch_step: 4
+    instant_fail: [close_case_without_location]
+    expected_score: [0.50, 0.90]
+    naive_llm_score: 0.45
+
+  - id: task_hard_medical_emergency
+    difficulty: hard
+    actual_severity: 0.95
+    user_truthfulness: 0.50
+    hidden_complications: [internal_bleeding, aspirin_contraindicated_warfarin, second_person_injured]
+    optimal_dispatch_step: 2
+    instant_fail: [aspirin_without_medication_check, delay_dispatch_step_4, close_while_critical]
+    expected_score: [0.30, 0.85]
+    naive_llm_score: 0.05
+    note: "Gives aspirin without checking warfarin = instant 0. Designed to break GPT-4/Claude."
+
+dynamics:
+  risk: "base_risk * exp(time_elapsed * hidden_spread_rate)"
+  observation_noise: {distribution: gaussian, sigma: 0.15}
+  panic_growth: 0.04/step
+  panic_reduction_from_guidance: -0.08
+
+reward_components:
+  info_gain:           {max: 0.25, diminishing_returns: true}
+  risk_reduction:      {dispatch: 0.4, guidance: "0.05*panic"}
+  efficiency_bonus:    {max: 0.3}
+  delay_penalty:       {formula: "-0.05*exp((step-optimal)*0.3)"}
+  premature_dispatch:  -0.3
+  unsafe_action:       -0.6
+  instant_fail:        -1.0
+  completion_bonus:    0.5
+
+baseline:
+  file: inference.py
+  class: FrontierAgent
+  architecture: bayesian_belief_state
+  expected_scores: {easy: 0.78, medium: 0.62, hard: 0.41}
+
+deployment:
+  platform: Hugging Face Spaces
+  frontend: React 18 + Vite
+  backend: environment.py + graders.py + inference.py
+  docker: {file: Dockerfile, port: 7860}
+
+python_requirements:
+  - pydantic>=2.0

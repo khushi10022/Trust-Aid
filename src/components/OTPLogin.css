@@ -1,0 +1,139 @@
+.otp-root {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0a1628 0%, #1a3a6c 50%, #0a1628 100%);
+  padding: 20px;
+  font-family: var(--f-body, 'Be Vietnam Pro', sans-serif);
+  /* Fills full screen, ignoring any sidebar */
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow-y: auto;
+}
+
+.otp-card {
+  background: var(--card, #fff);
+  border-radius: 22px;
+  box-shadow: 0 24px 80px rgba(0,0,0,.35), 0 4px 16px rgba(0,0,0,.15);
+  width: 100%;
+  max-width: 420px;
+  overflow: hidden;
+  animation: otpCardIn .4s cubic-bezier(.23,1,.32,1) both;
+  margin: auto;
+  position: relative;
+}
+
+
+@keyframes otpCardIn { from{opacity:0;transform:translateY(24px) scale(.97)} to{opacity:1;transform:none} }
+
+.otp-header {
+  background: linear-gradient(135deg, #0a1628, #1a3a6c);
+  padding: 28px 28px 20px;
+  text-align: center;
+  position: relative;
+}
+.otp-logo {
+  width: 52px; height: 52px;
+  background: rgba(255,255,255,.15);
+  border: 2px solid rgba(255,255,255,.3);
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.3);
+}
+.otp-brand { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -0.5px; font-family: var(--f-head,'Be Vietnam Pro',sans-serif); }
+.otp-tagline { font-size: 11px; color: rgba(255,255,255,.6); margin-top: 3px; }
+
+.otp-body { padding: 28px; }
+.otp-step-title { font-size: 20px; font-weight: 800; color: var(--t1,#0d1b2a); margin-bottom: 5px; font-family: var(--f-head,sans-serif); }
+.otp-step-sub { font-size: 13px; color: var(--t3,#5d6d7e); margin-bottom: 22px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.otp-mode-toggle { display: flex; gap: 8px; margin-bottom: 20px; }
+.otp-mode-btn {
+  flex: 1; padding: 10px 8px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border,#dde3ea);
+  background: var(--surface,#f5f7fa);
+  color: var(--t2,#2c3e50);
+  font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all .2s;
+  font-family: var(--f-head,sans-serif);
+}
+.otp-mode-btn.active {
+  background: var(--navy,#0a1628);
+  border-color: var(--navy,#0a1628);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(10,22,40,.25);
+}
+
+.otp-field { margin-bottom: 18px; }
+.otp-label { display: block; font-size: 12px; font-weight: 700; color: var(--t2,#2c3e50); margin-bottom: 7px; letter-spacing: .3px; }
+.otp-input-wrap { display: flex; align-items: center; border: 1.5px solid var(--border,#dde3ea); border-radius: 10px; overflow: hidden; background: var(--card,#fff); transition: border-color .2s; }
+.otp-input-wrap:focus-within { border-color: var(--navy,#0a1628); box-shadow: 0 0 0 3px rgba(10,22,40,.08); }
+.otp-input-wrap.error-wrap { border-color: var(--crimson,#c0392b); }
+.otp-prefix { padding: 0 10px 0 14px; font-size: 14px; font-weight: 700; color: var(--t2,#2c3e50); border-right: 1px solid var(--border,#dde3ea); height: 44px; display: flex; align-items: center; background: var(--surface,#f5f7fa); }
+.otp-input { flex: 1; border: none; padding: 12px 14px; font-size: 15px; color: var(--t1,#0d1b2a); background: transparent; outline: none; font-family: var(--f-body,sans-serif); }
+.otp-input::placeholder { color: var(--t4,#aab7c4); }
+.otp-error { font-size: 11.5px; color: var(--crimson,#c0392b); margin-top: 6px; font-weight: 600; }
+.otp-error.center { text-align: center; margin-bottom: 10px; }
+
+.otp-btn-primary {
+  width: 100%; padding: 14px;
+  background: linear-gradient(135deg, #c0392b, #962d22);
+  color: #fff; border: none; border-radius: 12px;
+  font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: all .22s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--f-head,sans-serif);
+  box-shadow: 0 4px 18px rgba(192,57,43,.3);
+  margin-bottom: 14px;
+}
+.otp-btn-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(192,57,43,.4); }
+.otp-btn-primary:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+.otp-spin { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.35); border-top-color:#fff; border-radius:50%; animation: spin .7s linear infinite; display:inline-block; }
+
+.otp-note { font-size: 11px; color: var(--t4,#aab7c4); text-align: center; display: flex; align-items: center; justify-content: center; gap: 5px; }
+.otp-change-link { background: none; border: none; color: var(--crimson,#c0392b); font-size: 12px; font-weight: 700; cursor: pointer; text-decoration: underline; padding: 0; }
+
+/* OTP digits */
+.otp-dev-hint { background: #fef9c3; border: 1px solid #fde047; border-radius: 8px; padding: 8px 12px; font-size: 12px; color: #854d0e; margin-bottom: 16px; text-align: center; }
+.otp-digits { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
+.otp-digit {
+  width: 46px; height: 56px;
+  border: 2px solid var(--border,#dde3ea);
+  border-radius: 12px;
+  text-align: center;
+  font-size: 22px; font-weight: 800;
+  color: var(--t1,#0d1b2a);
+  background: var(--surface,#f5f7fa);
+  outline: none; transition: all .2s;
+  font-family: var(--f-mono,'JetBrains Mono',monospace);
+  caret-color: var(--crimson,#c0392b);
+}
+.otp-digit:focus { border-color: var(--navy,#0a1628); background: var(--card,#fff); box-shadow: 0 0 0 3px rgba(10,22,40,.08); }
+.otp-digit.filled { border-color: var(--green-in,#27ae60); background: #f0fdf4; color: var(--green-in,#27ae60); }
+.otp-digit.err { border-color: var(--crimson,#c0392b); background: #fef2f2; animation: shake .3s ease; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }
+
+.otp-resend-row { text-align: center; }
+.otp-resend-timer { font-size: 12px; color: var(--t4,#aab7c4); }
+.otp-resend-btn { background: none; border: none; color: var(--navy,#0a1628); font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: underline; }
+
+/* Success */
+.otp-success-body { text-align: center; padding: 40px 28px; }
+.otp-success-icon { font-size: 56px; margin-bottom: 14px; animation: successPop .4s cubic-bezier(.23,1,.32,1); }
+@keyframes successPop { from{transform:scale(0)} to{transform:scale(1)} }
+.otp-success-bar { height: 4px; background: linear-gradient(90deg,var(--green-in,#27ae60),#22c55e); border-radius: 2px; margin-top: 24px; animation: loadBar 1s ease forwards; }
+@keyframes loadBar { from{width:0} to{width:100%} }
+@keyframes spin { to{transform:rotate(360deg)} }
+
+/* Dark mode */
+[data-theme="dark"] .otp-card { background: var(--card); }
+[data-theme="dark"] .otp-mode-btn { background: var(--navy-mid); border-color: var(--border); color: var(--t2); }
+[data-theme="dark"] .otp-input-wrap { background: var(--navy-mid); border-color: var(--border); }
+[data-theme="dark"] .otp-input { background: transparent; color: var(--t1); }
+[data-theme="dark"] .otp-digit { background: var(--navy-mid); border-color: var(--border); color: var(--t1); }
+[data-theme="dark"] .otp-prefix { background: var(--navy-light); color: var(--t1); border-color: var(--border); }

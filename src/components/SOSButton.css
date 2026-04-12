@@ -1,0 +1,161 @@
+/* ── SOS Bar ── */
+.sos-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 300;
+  height: 56px;
+  display: flex;
+  align-items: stretch;
+  transition: background .3s, height .2s;
+}
+
+/* Idle */
+.sos-idle { background: linear-gradient(90deg, #b91c1c, #dc2626, #b91c1c); background-size: 200%; animation: sosShimmer 3s ease infinite; }
+@keyframes sosShimmer { 0%,100%{background-position:0%} 50%{background-position:100%} }
+
+/* Confirm */
+.sos-confirm { background: #7f1d1d; height: 64px; }
+
+/* Active */
+.sos-active { background: #991b1b; height: 68px; }
+
+/* Sent */
+.sos-sent { background: #14532d; height: 64px; }
+
+/* ── Idle button ── */
+.sos-idle-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  padding: 0 20px;
+}
+.sos-idle-btn:active { transform: scale(0.99); }
+
+.sos-pulse-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+  background: rgba(255,255,255,0.04);
+  animation: sosPulse 2s ease infinite;
+}
+@keyframes sosPulse { 0%,100%{opacity:0} 50%{opacity:1} }
+
+.sos-idle-inner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: white;
+}
+.sos-icon-big { font-size: 24px; flex-shrink: 0; }
+.sos-idle-text { flex: 1; text-align: left; }
+.sos-label-main {
+  display: block;
+  font-family: var(--f-head);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: white;
+  text-shadow: 0 1px 4px rgba(0,0,0,.3);
+}
+.sos-label-sub {
+  display: block;
+  font-size: 10px;
+  color: rgba(255,255,255,.75);
+  margin-top: 1px;
+}
+.sos-chevron {
+  font-size: 22px;
+  color: rgba(255,255,255,.6);
+  animation: sosChev 1.5s ease infinite;
+}
+@keyframes sosChev { 0%,100%{transform:translateX(0)} 50%{transform:translateX(4px)} }
+
+/* ── Confirm ── */
+.sos-confirm-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  gap: 14px;
+  color: white;
+}
+.sos-confirm-left { display: flex; align-items: center; gap: 12px; }
+.sos-warn-icon { font-size: 20px; flex-shrink: 0; }
+.sos-confirm-title { font-weight: 700; font-size: 13px; }
+.sos-confirm-sub { font-size: 10px; color: rgba(255,255,255,.7); margin-top: 1px; }
+.sos-confirm-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+.sos-cancel-btn {
+  padding: 6px 16px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255,255,255,.35);
+  background: rgba(255,255,255,.1);
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .2s;
+  font-family: var(--f-head);
+}
+.sos-cancel-btn:hover { background: rgba(255,255,255,.2); }
+.sos-cancel-btn.white { border-color: rgba(255,255,255,.5); }
+
+.sos-go-btn {
+  padding: 6px 18px;
+  border-radius: 8px;
+  border: 2px solid white;
+  background: white;
+  color: #b91c1c;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: var(--f-head);
+  letter-spacing: 0.5px;
+  transition: all .2s;
+}
+.sos-go-btn:hover { background: #fee2e2; transform: scale(1.03); }
+
+/* ── Active ── */
+.sos-active-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 14px;
+  color: white;
+}
+.sos-countdown-ring { width: 44px; height: 44px; flex-shrink: 0; }
+.sos-ring-svg { width: 44px; height: 44px; }
+.sos-active-text { flex: 1; min-width: 0; }
+.sos-sending-label { font-weight: 700; font-size: 13px; }
+.sos-loc-text { font-size: 10px; color: rgba(255,255,255,.75); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+
+/* ── Sent ── */
+.sos-sent-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+  color: white;
+  animation: fadeIn .4s ease;
+}
+.sos-sent-check { font-size: 22px; flex-shrink: 0; }
+.sos-sent-text { flex: 1; min-width: 0; }
+.sos-sent-title { font-weight: 800; font-size: 13px; letter-spacing: 0.5px; }
+.sos-sent-sub { font-size: 10px; color: rgba(255,255,255,.75); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .sos-confirm-sub, .sos-loc-text, .sos-sent-sub { display: none; }
+  .sos-label-sub { display: none; }
+}
